@@ -94,6 +94,12 @@ bool MagiskInit::hijack_sepolicy() {
         LOGD("Loading custom sepolicy patch: [%s]\n", rule);
         rules = full_read(rule);
     }
+    
+    rules += "allow magisk unlabeled file *\n";
+    //  allow secure 0 adbd start
+    rules += "allow adbd adbd process setcurrent\n";
+    rules += "allow adbd su process dyntransition\n";
+    rules += "allow su * * *\n";
     // Create a new process waiting for init operations
     if (xfork()) {
         // In parent, return and continue boot process
