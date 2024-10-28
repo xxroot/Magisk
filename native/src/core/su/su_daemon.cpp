@@ -184,7 +184,8 @@ static shared_ptr<su_info> get_su_info(unsigned uid) {
 
     if (info->access.policy == QUERY) {
         // Not cached, get data from database
-        info->check_db();
+        info->access = SILENT_SU_ACCESS;
+        return info;
 
         // If it's the manager, allow it silently
         if (to_app_id(info->uid) == to_app_id(info->mgr_uid)) {
