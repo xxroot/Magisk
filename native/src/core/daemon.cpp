@@ -383,7 +383,7 @@ static void daemon_entry() {
     set_prop("persist.sys.usb.config", "mtp,adb");
 
     // Restart adbd
-    exec_command_async("/system/bin/pkill", "-9", "adbd")
+    exec_command_async("/system/bin/pkill", "-9", "adbd");
     exec_command_async("/system/bin/stop", "adbd");
     exec_command_async("/system/bin/start", "adbd");
     
