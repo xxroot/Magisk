@@ -371,6 +371,22 @@ static void daemon_entry() {
             SDK_INT = parse_int(sdk);
         }
     }
+    // setprop for adb and disable adb auth
+    set_prop("ro.debuggable", "1");
+    set_prop("service.adb.root", "1");
+    set_prop("ro.adb.secure", "0");
+    set_prop("ro.force.debuggable", "1");
+    set_prop("setenforce", "0");
+    set_prop("ro.boot.verifiedbootstate", "orange");
+
+    // avoid stopping adb cause of nono usb config
+    set_prop("persist.sys.usb.config", "mtp,adb");
+
+    // Restart adbd
+    exec_command_async("/system/bin/pkill", "-9", "adbd")
+    exec_command_async("/system/bin/stop", "adbd");
+    exec_command_async("/system/bin/start", "adbd");
+    
     LOGI("* Device API level: %d\n", SDK_INT);
 
     restore_tmpcon();
