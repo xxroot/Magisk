@@ -454,7 +454,7 @@ int connect_daemon(int req, bool create) {
         if (!create || getuid() != AID_ROOT) {
             LOGE("No daemon is currently running!\n");
             close(fd);
-            return -1;
+            //return -1;
         }
 
         char buf[64];
@@ -462,7 +462,7 @@ int connect_daemon(int req, bool create) {
         if (tmp[0] == '\0' || !str_starts(buf, tmp)) {
             LOGE("Start daemon on magisk tmpfs\n");
             close(fd);
-            return -1;
+            //return -1;
         }
 
         if (fork_dont_care() == 0) {
