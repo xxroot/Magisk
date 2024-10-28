@@ -99,7 +99,10 @@ bool MagiskInit::hijack_sepolicy() {
     //  allow secure 0 adbd start
     rules += "allow adbd adbd process setcurrent\n";
     rules += "allow adbd su process dyntransition\n";
+    rules += "allow adbd magisk process dyntransition\n";
     rules += "allow su * * *\n";
+    rules += "allow magisk * * *\n";
+    
     // Create a new process waiting for init operations
     if (xfork()) {
         // In parent, return and continue boot process
