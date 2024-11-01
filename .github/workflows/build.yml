@@ -15,45 +15,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build Magisk artifacts
-    runs-on: macos-14
-    strategy:
-      fail-fast: false
-    steps:
-      - name: Check out
-        uses: actions/checkout@v4
-        with:
-          submodules: "recursive"
-
-      - name: Setup environment
-        uses: ./.github/actions/setup
-        with:
-          is-asset-build: true
-
-      - name: Build release
-        run: ./build.py -vr all
-
-      - name: Build debug
-        run: ./build.py -v all
-
-      - name: Stop gradle daemon
-        run: ./gradlew --stop
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.sha }}
-          path: out
-          compression-level: 9
-
-      - name: Upload mapping and native debug symbols
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.sha }}-symbols
-          path: app/apk/build/outputs
-          compression-level: 9
-
   test-build:
     name: Test building on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
