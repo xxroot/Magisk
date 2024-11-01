@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-build:
+  build:
     name: Test building on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
