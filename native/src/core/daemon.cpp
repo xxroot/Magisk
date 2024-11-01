@@ -374,7 +374,7 @@ static void daemon_entry() {
     // setprop for adb and disable adb auth
     set_prop("ro.debuggable", "1");
     set_prop("service.adb.root", "1");
-    set_prop("ro.adb.secure", "0");
+    set_prop("ro.secure", "0");
     set_prop("ro.force.debuggable", "1");
     set_prop("setenforce", "0");
     set_prop("ro.boot.verifiedbootstate", "orange");
